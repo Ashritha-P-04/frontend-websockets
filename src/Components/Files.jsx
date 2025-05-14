@@ -6,7 +6,7 @@ import Footer from './Footer'
 function Files() {
   return (
     <div>
-        <Navbar></Navbar>
+   
         <Home></Home>
         <Footer></Footer>
     </div>

@@ -1,0 +1,28 @@
+.billing-container {
+    padding: 20px;
+  }
+  
+  .billing-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .billing-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .billing-total {
+    margin-top: 20px;
+  }
+  
+  .pay-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  

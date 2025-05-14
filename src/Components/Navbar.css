@@ -1,6 +1,6 @@
 .pizzahub-navbar {
-  background-color: whitesmoke(26, 20, 20);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color:rgb(33, 59, 94);
+  box-shadow: 0 2px 8px rgba(234, 206, 206, 0.1);
   padding: 12px 24px;
   position: sticky;
   top: 0;
@@ -45,7 +45,7 @@
 
 
 .pizzahub-logo-text {
-  color: #1d3557;
+  color:rgb(212, 217, 224);
 }
 
 .pizzahub-logo-accent {
@@ -62,7 +62,7 @@
 
 .pizzahub-navbar-link {
   text-decoration: none;
-  color: black;
+  color: white;
   font-weight: 500;
   transition: color 0.3s;
 }
