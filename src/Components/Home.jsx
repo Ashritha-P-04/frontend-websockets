@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import Navbar from './Navbar';
 
 const Home = () => {
   return (
     <div className="home">
+      <Navbar></Navbar>
       <section className="hero">
         <div className="hero-content">
           <h1>Delicious Pizza Delivered To Your Door</h1>
