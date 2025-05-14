@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './Components/Navbar';
 import Files from './Components/Files';
 import Menu from './Customers/Menu';
+import Billing from './Billing/Billing';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Files />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/bill" element={<Billing></Billing>}></Route>
       </Routes>
     </div>
   );
