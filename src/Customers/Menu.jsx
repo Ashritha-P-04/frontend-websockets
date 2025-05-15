@@ -557,18 +557,18 @@ const Menu = () => {
   ];
   
   const handleAddToCart = (pizza, size) => {
-    // Check if the pizza is already in the cart
+
     const existingPizza = cart.find(item => item.pizza._id === pizza._id && item.size === size);
 
     if (existingPizza) {
-      // Update the quantity if pizza already in the cart
+      
       setCart(cart.map(item =>
         item.pizza._id === pizza._id && item.size === size
           ? { ...item, quantity: item.quantity + 1 }
           : item
       ));
     } else {
-      // Add new pizza to the cart
+  
       setCart([...cart, { pizza, size, quantity: 1 }]);
     }
   };

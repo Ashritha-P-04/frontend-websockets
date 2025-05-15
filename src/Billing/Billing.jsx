@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../Components/CartContext';
+import { usePayments } from '../Components/PaymentContext'; // ⬅ Add this
+import { useNavigate } from 'react-router-dom'; // ⬅ For navigation
 import socket from '../socketService';
 import './Billing.css';
 
 const Billing = () => {
   const { cart, clearCart } = useCart();
-  const [lastPayment, setLastPayment] = useState(null);
+  const { addPayment } = usePayments(); // ⬅ From PaymentContext
+  const navigate = useNavigate(); // ⬅ Used to redirect
+  const [customerName, setCustomerName] = useState('');
 
   const totalPrice = cart.reduce((sum, item) => {
     const sizePrice = item.pizza.sizes.find(s => s.size === item.size).price;
@@ -13,7 +17,14 @@ const Billing = () => {
   }, 0);
 
   const handlePaymentConfirm = () => {
-    const details = {
+    if (!customerName.trim()) {
+      alert('Please enter your name before confirming payment.');
+      return;
+    }
+    alert("Order Confirmed")
+
+    const paymentDetails = {
+      customerName: customerName.trim(),
       items: cart.map(item => ({
         name: item.pizza.name,
         size: item.size,
@@ -25,15 +36,16 @@ const Billing = () => {
       timestamp: new Date().toISOString(),
     };
 
-    socket.emit('confirm-payment', details);
-    clearCart(); // if you want to reset the cart in this window
+    socket.emit('new-order', paymentDetails);
+    // addPayment(paymentDetails); // ⬅ Store globally
+    clearCart();
+    setCustomerName('');
+    // navigate('/Ohef'); // ⬅ Redirect to Orders
   };
 
   useEffect(() => {
     socket.on('payment-confirmed', (details) => {
-      setLastPayment(details);
-      // you could also refresh data, show a toast, etc.
-      console.log('Payment event received in Billing.jsx', details);
+      console.log('Payment confirmed from server:', details);
     });
 
     return () => {
@@ -44,36 +56,45 @@ const Billing = () => {
   return (
     <div className="billing-container">
       <h2>Billing Details</h2>
-      {cart.length === 0
-        ? <div>No items in cart</div>
-        : (
-          <ul className="billing-list">
-            {cart.map((item,i) => {
-              const sizePrice = item.pizza.sizes.find(s=>s.size===item.size).price;
-              const itemTotal = (item.pizza.price + sizePrice) * item.quantity;
-              return (
-                <li key={i} className="billing-item">
-                  <span>{item.pizza.name} ({item.size}) × {item.quantity}</span>
-                  <span>Rs{itemTotal.toFixed(2)}</span>
-                </li>
-              );
-            })}
-          </ul>
-        )
-      }
+
+      <div className="customer-name-field">
+        <label htmlFor="customerName">Enter Your Name:</label>
+        <input
+          id="customerName"
+          type="text"
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
+          placeholder="Your Name"
+        />
+      </div>
+
+      {cart.length === 0 ? (
+        <div>No items in cart</div>
+      ) : (
+        <ul className="billing-list">
+          {cart.map((item, i) => {
+            const sizePrice = item.pizza.sizes.find(s => s.size === item.size).price;
+            const itemTotal = (item.pizza.price + sizePrice) * item.quantity;
+            return (
+              <li key={i} className="billing-item">
+                <span>{item.pizza.name} ({item.size}) × {item.quantity}</span>
+                <span>Rs{itemTotal.toFixed(2)}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
       <div className="billing-total">
         <h3>Total: Rs{totalPrice.toFixed(2)}</h3>
-        <button className="pay-btn" onClick={handlePaymentConfirm}>
+        <button
+          className="pay-btn"
+          onClick={handlePaymentConfirm}
+          disabled={!customerName.trim() || cart.length === 0}
+        >
           Confirm Payment
         </button>
       </div>
-
-      {lastPayment && (
-        <div className="payment-notice">
-          💡 Last payment of Rs{lastPayment.totalAmount.toFixed(2)} confirmed at 
-          {new Date(lastPayment.timestamp).toLocaleTimeString()}.
-        </div>
-      )}
     </div>
   );
 };

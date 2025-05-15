@@ -1,6 +1,4 @@
-/* Menu.css - Styling for the Pizza Menu Component */
 
-/* Main container styles */
 .menu-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -20,7 +18,6 @@
   padding-bottom: 10px;
 }
 
-/* Pizza list grid layout */
 .pizza-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -28,7 +25,6 @@
   margin-bottom: 40px;
 }
 
-/* Pizza card styling */
 .pizza-card {
   background-color: white;
   border-radius: 12px;
@@ -45,7 +41,6 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Vegetarian badge */
 .pizza-card::before {
   content: attr(data-vegetarian);
   position: absolute;
@@ -66,7 +61,7 @@
   opacity: 1;
 }
 
-/* Pizza image styles */
+
 .pizza-image {
   width: 100%;
   height: 200px;
@@ -74,7 +69,6 @@
   border-bottom: 3px solid #e63946;
 }
 
-/* Pizza details */
 .pizza-card h3 {
   margin: 15px 15px 10px;
   color: #1d3557;
@@ -96,7 +90,6 @@
   padding-top: 10px;
 }
 
-/* Size selection buttons */
 .sizes {
   display: flex;
   padding: 0 15px 15px;
@@ -121,7 +114,6 @@
   background-color: #1d3557;
 }
 
-/* Cart styles */
 .menu-container h2 {
   text-align: center;
   color: #1d3557;
@@ -163,7 +155,7 @@
   border-radius: 8px;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .pizza-list {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -184,13 +176,12 @@
   }
 }
 
-/* Add vegetarian badge functionality */
 .pizza-card[data-is-vegetarian="true"]::before {
   content: "Vegetarian";
   opacity: 1;
 }
 
-/* Animation for adding to cart */
+
 @keyframes addToCart {
   0% {
     transform: scale(1);
@@ -207,7 +198,6 @@
   animation: addToCart 0.3s ease;
 }
 
-/* Empty cart message */
 .empty-cart {
   text-align: center;
   padding: 20px;
@@ -215,7 +205,6 @@
   font-style: italic;
 }
 
-/* Cart item styles */
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -243,8 +232,6 @@
   border-radius: 5px;
   font-weight: bold;
 }
-
-/* Checkout button */
 .checkout-btn {
   display: block;
   width: 100%;

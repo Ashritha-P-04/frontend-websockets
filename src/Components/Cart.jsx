@@ -42,7 +42,7 @@ const Cart = () => {
         </ul>
       )}
       <div className="cart-total">
-        <h3>Total: ${totalPrice.toFixed(2)}</h3>
+        <h3>Total: Rs{totalPrice.toFixed(2)}</h3>
         <Link to ="/billing">{cart.length > 0 && <button className="checkout-btn">Proceed to Checkout</button>}</Link>
       </div>
     </div>

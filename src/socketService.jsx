@@ -1,5 +1,8 @@
 import { io } from 'socket.io-client';
 
-// adjust URL if your server is hosted elsewhere
-const socket = io('http://localhost:5000');
+
+const socket = io('http://localhost:5000', {
+  transports: ['websocket'],          
+  autoConnect: true,                
+});
 export default socket;
